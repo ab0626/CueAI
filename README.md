@@ -31,83 +31,134 @@ CueAI is a high-fidelity pool simulation app designed to predict cue ball and ob
 | Evaluation    | Mean Squared Error / Cosine Similarity                                 |
 | Deployment    | Model saved via `joblib` or `onnx` and used during simulation          |
 
-✅ Phase 1: Core Physics Engine
-1. Table & Ball Model
-Table: standard dimensions, six pockets, rail bounce logic
+# 🎱 CueAI: High-Fidelity Pool Simulation & Shot Prediction Engine
 
-Balls: mass, radius, moment of inertia
+CueAI is a physics-based, machine learning-enhanced simulator that models pool (billiards) shots with high precision. It predicts cue ball behavior, spin effects, and object ball trajectories using realistic physics, collision mechanics, and optional calibration from real-world data.
 
-Physics: 2D motion + angular velocity
+---
 
-2. Cue Input System
-Shot parameters:
+## 🚀 Features at a Glance
 
-Initial position
+- 2D physics engine with spin and torque modeling  
+- Realistic cue input system (angle, spin, velocity)  
+- Ball-ball and ball-rail collision handling with spin effects  
+- Advanced mechanics like squirt, throw, and masse  
+- Curved table simulation via heightmaps  
+- Machine learning calibration using computer vision  
+- Interactive GUI for shot setup and real-time visualization  
 
-Angle (θ)
+---
 
-Speed (v)
+## ✅ Phase 1: Core Physics Engine
 
-Spin: top/back/side (mapped via 2D vector)
+### Table & Ball Model
+- Standard 9-ft table with 6 pockets
+- Ball properties: mass, radius, moment of inertia
+- Accurate rail bounce geometry
 
-3. Ball Behavior Mechanics
-Translational movement using Newtonian physics
+### Cue Input System
+- Cue parameters:
+  - Initial position (x, y)
+  - Shot angle (θ)
+  - Speed (v)
+  - Spin vector: [top/back, side]
 
-Rotational movement from spin and torque
+### Physics Modeling
+- 2D translational motion via Newtonian equations
+- Angular motion: torque and spin propagation
+- Friction mechanics:
+  - Sliding to rolling transition
+  - Ball/table and ball/ball friction handling
 
-Friction modeling:
+---
 
-Sliding → rolling transition
+## 🔁 Phase 2: Advanced Interactions
 
-Ball/table and ball/ball
+### Collision Mechanics
+- Elastic ball-to-ball collisions with spin transfer
+- Ball-to-rail bounces with angular adjustments
+- Impulse and angular momentum conservation
 
-🔁 Phase 2: Advanced Interactions
-4. Collision Mechanics
-Ball-ball elastic collisions with spin transfer
+### Spin Effects
+- **Squirt:** Lateral cue ball deviation due to side spin
+- **Throw:** Object ball veers off-line when struck with spin
+- **Masse:** Curved trajectories when cue elevation is introduced
 
-Ball-rail bounces with spin/speed adjustments
+### Curved Table Surface
+- Modeled with a heightmap `h(x, y)`
+- Slope vector ∇h used to apply drift acceleration
+- Simulates warped/sloped surfaces for advanced realism
 
-Use impulse and angular momentum conservation
+---
 
-5. Spin Effects
-Add logic for:
+## 🧪 Phase 3: Calibration & ML (Optional)
 
-Squirt: offsetting path due to side spin
+### Real Table Calibration Mode
+- Take test shots and log predicted vs. actual ball paths
+- Use computer vision (OpenCV) to extract real-world shot data
+- Train ML model to correct residual errors
 
-Throw: object ball deviates when hit with spin
+#### ML Model
+- **Input:** [cue angle, speed, spin vector]
+- **Output:** Offset correction (position, angle)
+- Frameworks: PyTorch / Scikit-learn (regressor)
 
-Masse (curved shots): if cue elevation is supported
+---
 
-6. Curved Table Surface
-Simulate using:
+## 👁️ Phase 4: UI + Visualization
 
-Heightmap h(x, y) → slope vector ∇h
+### Interactive UI
+- Drag/drop interface for placing balls
+- Cue input controls:
+  - Angle slider
+  - Speed power bar
+  - Spin wheel/vector selector
+- Toggle buttons:
+  - Enable/disable friction, cloth effects, throw/squirt
 
-Apply drift acceleration based on slope
+### Visual Overlays
+- Predicted paths for cue and object balls
+- Cue stick aiming guide
+- Vector arrows for spin, squirt, throw
 
-🧪 Phase 3: Calibration & ML (Optional)
-7. Real Table Calibration Mode
-Take test shots
+Frameworks: PyQt / PyGame / OpenGL (optional)
 
-Log predicted vs. actual outcomes (via CV)
+---
 
-Train ML model to learn residual errors:
+## 🧰 Tech Stack
 
-Input: shot parameters
+| Component         | Technology                    |
+|------------------|-------------------------------|
+| Physics Engine    | Python, NumPy                 |
+| UI Layer          | PyQt5 / PyGame                |
+| CV Calibration    | OpenCV                        |
+| ML Calibration    | PyTorch / Scikit-learn        |
+| Visualization     | Matplotlib / OpenGL           |
 
-Output: correction offset
+---
 
-👁️ Phase 4: UI + Visualization
-8. UI Interface
-Drag/drop balls
+## 📈 Future Enhancements
 
-Adjust cue input (angle, speed, spin)
+- Multiplayer shot replay system  
+- Shot accuracy analytics dashboard  
+- Cue elevation and jump shot mechanics  
+- Mobile-friendly version  
 
-Toggle effects on/off (e.g., cloth nap, throw)
+---
 
-9. Visual Overlay
-Display predicted paths
+## 📸 Demo (Coming Soon)
 
-Show cue stick visualization
+- GIFs of path prediction and spin visualization  
+- Before/after of real-world calibration  
 
-Add vector indicators for spin, squirt, etc.
+---
+
+## 🧠 Credits
+
+Built with passion for physics, machine learning, and precision gaming.
+
+---
+
+## 📄 License
+
+MIT License — use, modify, and share freely.
